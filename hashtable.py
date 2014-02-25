@@ -12,8 +12,8 @@ class HashTable(object):
     # returns int
     return self.hash_table[string_key]
 
-  def remove_key(self,string_key):
-    # returns int
+  def remove_key(self, string_key):
+    # do whatever you want
     del self.hash_table[string_key]
 
 # a dictionary is really a list
@@ -37,9 +37,6 @@ class HashTableList(object):
     # returns int
     del self.hash_table[self.hash_table.index(string_key) + 1]
     del self.hash_table[self.hash_table.index(string_key)]
-
-
-
 
 
 
@@ -68,6 +65,6 @@ class HashTableSortedList(object):
 
 
 x = HashTableSortedList()
-x. add_key_value_pair('derp', 5)
+x.add_key_value_pair('derp', 5)
 
 pdb.set_trace()
