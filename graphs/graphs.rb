@@ -49,15 +49,22 @@ end
 # p grapher(giant)
 p grapher(g)
 
-def accessible?(origin, destination, graph)
+def accessible?(origin, destination, graph, exclude=[])
   if graph[origin].include?(destination)
-     true
-  else
+    true
+  elsif graph[origin].empty?
     false
+  else
+    exclude << origin
+    graph[origin].each do |new|
+      if !exclude.include?(new)
+        accessible?(new, destination, graph, exclude)
+      end
+    end
   end
 end
 
-# p accessible?(1, 2, g)
+p accessible?(1, 3, g)
 # binding.pry
 
 
