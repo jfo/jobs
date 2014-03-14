@@ -30,7 +30,10 @@ g = [[1, 2],
      [13, 7],
      [13, 14],
      [14, 8],
-     [14, 13]]
+     [14, 13],
+     [90, 91],
+     [91, 90]]
+
 
 # giant = File.open("/Users/jeff/code/jobs/graphs/connections.txt", "rb").readlines
 # giant.collect! do |line|
@@ -38,7 +41,7 @@ g = [[1, 2],
 # end
 
 def grapher(array)
-  hash = {}
+  hash = Hash.new { |hash, key| hash[key] = [] }
   array.each do |pair|
     hash[pair[0]] ||= []
     hash[pair[0]] << pair[1]
@@ -46,25 +49,61 @@ def grapher(array)
   hash
 end
 
-# p grapher(giant)
-p grapher(g)
 
-def accessible?(origin, destination, graph, exclude=[])
+# p grapher(giant)
+# p grapher(g)
+
+
+
+def accessible?(origin, destination, graph, exclude = [])
+
+  paths = graph[origin] - exclude
+  exclude << origin
+
   if graph[origin].include?(destination)
     true
-  elsif graph[origin].empty?
+  elsif paths.empty?
     false
   else
-    exclude << origin
-    graph[origin].each do |new|
-      if !exclude.include?(new)
-        accessible?(new, destination, graph, exclude)
-      end
+    paths.each do |e|
+      return true if accessible?(e, destination, graph, exclude)
     end
+    false
   end
+
 end
 
-p accessible?(1, 3, g)
+
+# def step(node, graph, exclude)
+#   poss = graph[node] - exclude
+#   poss[0]
+# end
+
+
+# def count_paths(origin, destination, graph, exclude = [])
+
+#   exclude << origin
+#   next_step = step(origin, graph, exclude)
+
+
+# end
+
+
+test = [[1,3], [1,2]]
+
+
+graph = grapher(test)
+graph = grapher(g)
+
+p graph
+
+puts "1 - > 2"
+p accessible?(1, 2, graph)
+puts "1 - > 3"
+p accessible?(1, 3, graph)
+puts "1 - > 90"
+p accessible?(2, 90, graph)
+
 # binding.pry
 
 

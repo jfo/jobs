@@ -20,4 +20,4 @@
 (in [8 0] [1 1])
 
 (count-paths [0 0] [2 2])
-(count-paths [0 0] [10 10])
+(count-paths [0 0] [20 20])
